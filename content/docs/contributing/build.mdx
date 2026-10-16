@@ -1,0 +1,61 @@
+import { Steps } from 'nextra/components'
+
+# Build from source
+
+## Requirements
+
+- macOS 14 or later
+- Xcode 26 or later
+- A free Apple developer account, to sign builds for your own Mac
+
+## Steps
+
+<Steps>
+
+### Clone the repository
+
+```sh
+git clone https://github.com/OvraBrowser/Ovra.git
+cd Ovra
+```
+
+### Open the project
+
+Open `Ovra.xcodeproj` in Xcode. Swift Package Manager fetches the dependencies (Sparkle, ASN1Decoder, TrackerRadarKit) automatically.
+
+### Choose your signing team
+
+Select the **Ovra** target › **Signing & Capabilities**, and pick your own team.
+
+### Run
+
+Choose the **Ovra** scheme and press <kbd>⌘</kbd> <kbd>R</kbd>.
+
+</Steps>
+
+## Building from the command line
+
+```sh
+xcodebuild -project Ovra.xcodeproj -scheme Ovra -configuration Debug build
+```
+
+If `xcodebuild` complains about the developer directory, point it at Xcode:
+
+```sh
+export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+```
+
+## Debug launch arguments
+
+Add these in **Scheme › Run › Arguments** (Debug builds only):
+
+| Argument | Effect |
+| --- | --- |
+| `-hasCompletedOnboarding NO` | Show the first-launch intro and setup again, without touching saved data. |
+| `-OvraDemoProfile` | Start with an empty, in-memory database and sample favorites. Handy for screenshots. |
+| `-profileName Alex` | Override the name on the start page for this run. |
+| `-selectedTheme "Forest Bloom"` | Override the theme for this run. |
+
+## Adding files
+
+The Xcode project lists its files explicitly. When you add a Swift file, make sure it's added to the **Ovra** target.

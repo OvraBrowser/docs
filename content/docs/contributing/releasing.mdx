@@ -1,0 +1,20 @@
+# Releasing
+
+Releases are built and published with `scripts/release.sh`. Full instructions are in [`scripts/RELEASING.md`](https://github.com/OvraBrowser/Ovra/blob/main/scripts/RELEASING.md) in the repository.
+
+## How updates reach users
+
+1. `release.sh` archives a Release build, signs it, zips it and signs the zip with Sparkle's EdDSA key.
+2. The zip is attached to a GitHub release, `v<version>`.
+3. The feed, `appcast.xml`, is updated on `main` and served by GitHub Pages at `https://ovrabrowser.github.io/Ovra/appcast.xml`.
+4. Installed copies check the feed once a day and offer the update.
+
+```sh
+# Build and sign, upload nothing
+scripts/release.sh 1.0.1 --notes notes.md
+
+# Publish
+scripts/release.sh 1.0.1 --notes notes.md --publish
+```
+
+Build numbers are timestamps, so every release is newer than the last. Only maintainers with the signing keys can publish.

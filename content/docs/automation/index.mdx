@@ -1,0 +1,38 @@
+---
+asIndexPage: true
+---
+import { Status } from '../../../components/status'
+
+# Automation
+
+<Status kind="planned" note="Next on the roadmap" />
+
+Control Ovra from outside the app: from scripts, other apps, the Shortcuts app or the terminal.
+
+## What's planned
+
+### `ovra://` URL scheme
+
+Open URLs that other apps can call, for example to open a page in a new tab or switch theme:
+
+```text
+ovra://open?url=https%3A%2F%2Fexample.com
+ovra://new-tab
+ovra://theme?name=Forest%20Bloom
+```
+
+### AppleScript
+
+A scripting dictionary to read and control windows and tabs:
+
+```applescript
+tell application "Ovra"
+  get URL of active tab of front window
+end tell
+```
+
+### Shortcuts
+
+Actions for the Shortcuts app: **Open URL in Ovra**, **Get Current Page**, **Set Theme**, **Export Backup**.
+
+Examples above show the intended shape and may change before release.

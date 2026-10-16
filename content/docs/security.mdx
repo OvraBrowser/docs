@@ -1,0 +1,38 @@
+import { Status } from '../../components/status'
+
+# Permissions & security
+
+Add-ons run inside a browser, where people do their banking, email and work. Security comes before features.
+
+## Permission model
+
+<Status kind="planned" />
+
+- Every extension and plugin **declares the permissions it needs** in its manifest.
+- Ovra shows those permissions **before install**, in plain language.
+- Sensitive permissions — reading every site, browsing history, downloads — are **asked for separately** and can be revoked at any time in Settings.
+- Add-ons can't access other add-ons' data, Ovra's saved data, or files on the Mac unless the user picks them.
+
+## Gallery review
+
+<Status kind="planned" />
+
+Add-ons listed in the Ovra gallery are reviewed before they appear and again when they're updated. Review checks that the add-on does what it says, asks only for permissions it needs, doesn't load remote code, and doesn't collect data without saying so. Add-ons installed from a file aren't reviewed, and Ovra says so when you install one.
+
+## Signed updates
+
+<Status kind="available" />
+
+Ovra updates are signed with an EdDSA key and verified by Sparkle before they're installed, so only genuine releases can update Ovra.
+
+## Reporting a vulnerability
+
+<Status kind="available" />
+
+If you find a security problem in Ovra, **don't open a public issue**. Email [contact@kilianbalaguer.me](mailto:contact@kilianbalaguer.me) with:
+
+- what you found and its impact
+- steps to reproduce
+- the Ovra and macOS versions you tested
+
+We'll reply as soon as we can, keep you updated while we fix it, and credit you in the release notes if you'd like.

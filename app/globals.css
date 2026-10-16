@@ -1,0 +1,356 @@
+/*
+ * Ovra look for the docs: system font, the indigo accent, the Aurora gradient,
+ * rounded "glass" surfaces and pill buttons — the same language as the app.
+ */
+
+:root {
+  --ovra-accent: #5e5ce6;
+  --ovra-accent-strong: #4b49d6;
+  --ovra-card: #ffffff;
+  --ovra-card-border: rgba(0, 0, 0, 0.08);
+  --ovra-text: #1d1d1f;
+  --ovra-muted: #6e6e73;
+}
+
+html.dark {
+  --ovra-card: #2c2c2e;
+  --ovra-card-border: rgba(255, 255, 255, 0.08);
+  --ovra-text: #f5f5f7;
+  --ovra-muted: #a1a1a6;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Logo ── */
+.ovra-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.ovra-logo img {
+  border-radius: 50%;
+}
+html.dark .ovra-logo img {
+  filter: invert(1);
+}
+.ovra-logo-name {
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.2px;
+}
+.ovra-logo-docs {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ovra-accent);
+  background: color-mix(in srgb, var(--ovra-accent) 12%, transparent);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+/* ── Pill buttons ── */
+.ovra-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--ovra-text);
+  color: var(--ovra-card) !important;
+  text-decoration: none !important;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+}
+.ovra-pill:hover {
+  opacity: 0.88;
+}
+.ovra-pill:active {
+  transform: scale(0.98);
+}
+
+/* ── Sidebar: the active page looks like a selected Settings row ── */
+.nextra-sidebar a.x\:bg-primary-100,
+aside a.x\:bg-primary-100 {
+  background: var(--ovra-accent) !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+aside a {
+  border-radius: 8px !important;
+}
+
+/* ── Rounder surfaces ── */
+pre,
+.nextra-code,
+.nextra-callout,
+table {
+  border-radius: 12px !important;
+}
+.nextra-navbar-blur {
+  backdrop-filter: blur(20px) saturate(1.6);
+}
+
+/* ── Status badges ── */
+.ovra-status-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+}
+h1 + .ovra-status-line {
+  margin-top: 10px !important;
+}
+.ovra-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ovra-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ovra-status-available {
+  color: #1f7a3d;
+  background: rgba(52, 199, 89, 0.14);
+}
+.ovra-status-development {
+  color: #9a5b00;
+  background: rgba(255, 159, 10, 0.16);
+}
+.ovra-status-planned {
+  color: var(--ovra-muted);
+  background: color-mix(in srgb, var(--ovra-muted) 14%, transparent);
+}
+html.dark .ovra-status-available {
+  color: #5fd383;
+}
+html.dark .ovra-status-development {
+  color: #ffb547;
+}
+.ovra-status-note {
+  font-size: 13px;
+  color: var(--ovra-muted);
+}
+
+/* ── Home ── */
+.ovra-home {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 72px 24px 48px;
+}
+
+.ovra-intro {
+  display: grid;
+  gap: 48px;
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .ovra-intro {
+    grid-template-columns: 1.05fr 1fr;
+  }
+}
+.ovra-eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ovra-accent);
+}
+.ovra-intro h1 {
+  margin-top: 10px;
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  color: var(--ovra-text);
+}
+.ovra-lead {
+  margin-top: 18px;
+  max-width: 34ch;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--ovra-muted);
+}
+.ovra-actions {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+}
+.ovra-text-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ovra-text) !important;
+  text-decoration: none !important;
+}
+.ovra-text-link:hover {
+  color: var(--ovra-accent) !important;
+}
+
+.ovra-code {
+  margin: 0;
+  border-radius: 14px;
+  background: #1d1d1f;
+  color: #f5f5f7;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 24px 60px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+.ovra-code figcaption {
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a1a1a6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ovra-code pre {
+  margin: 0;
+  padding: 18px;
+  overflow-x: auto;
+  border-radius: 0 !important;
+  background: transparent !important;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.ovra-code code {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  background: transparent !important;
+  color: inherit;
+}
+
+.ovra-block {
+  margin-top: 88px;
+}
+.ovra-block h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ovra-text);
+}
+
+.ovra-list {
+  margin-top: 16px;
+  border-top: 1px solid var(--ovra-card-border);
+}
+.ovra-list li {
+  border-bottom: 1px solid var(--ovra-card-border);
+}
+.ovra-list a {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px 24px;
+  padding: 18px 4px;
+  text-decoration: none !important;
+}
+@media (min-width: 768px) {
+  .ovra-list a {
+    grid-template-columns: 200px 1fr auto;
+    align-items: center;
+  }
+}
+.ovra-list a:hover .ovra-list-title {
+  color: var(--ovra-accent);
+}
+.ovra-list-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ovra-text);
+}
+.ovra-list-text {
+  font-size: 15px;
+  color: var(--ovra-muted);
+}
+
+.ovra-links {
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 768px) {
+  .ovra-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.ovra-links h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ovra-text);
+}
+.ovra-links p {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--ovra-muted);
+}
+.ovra-links a {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ovra-accent);
+  text-decoration: none;
+}
+
+/* ── Footer ── */
+.ovra-footer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .ovra-footer {
+    grid-template-columns: 220px 1fr;
+  }
+}
+.ovra-footer-brand p {
+  margin-top: 8px;
+  color: var(--ovra-muted);
+}
+.ovra-footer-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .ovra-footer-columns {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.ovra-footer h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ovra-text);
+}
+.ovra-footer ul {
+  margin-top: 10px;
+  display: grid;
+  gap: 8px;
+}
+.ovra-footer li a {
+  color: var(--ovra-muted);
+  text-decoration: none;
+}
+.ovra-footer li a:hover {
+  color: var(--ovra-accent);
+}
+.ovra-footer-copy {
+  grid-column: 1 / -1;
+  padding-top: 20px;
+  border-top: 1px solid var(--ovra-card-border);
+  font-size: 12px;
+  color: var(--ovra-muted);
+}

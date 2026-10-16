@@ -1,0 +1,102 @@
+import { Status } from '../../../components/status'
+
+# The `.ovrabackup` format
+
+<Status kind="available" note="Ovra 1.0 and later · format version 1" />
+
+An `.ovrabackup` file is a snapshot of a user's Ovra settings, themes, favorites and bookmarks. Users create it in **Settings › Backup & Import** and restore it by double-clicking it. Each section is optional, so a backup can contain any combination.
+
+## File type
+
+| | |
+| --- | --- |
+| Extension | `.ovrabackup` |
+| Uniform Type Identifier | `com.ovra.browser.backup` (conforms to `public.json`) |
+| MIME type | `application/vnd.ovra.backup+json` |
+| Encoding | UTF-8 JSON, ISO 8601 dates |
+| Maximum size | 20 MB |
+
+## Structure
+
+```json filename="Ovra Backup 2026-10-16.ovrabackup"
+{
+  "format": "com.ovra.backup",
+  "version": 1,
+  "createdAt": "2026-10-16T12:00:00Z",
+  "appVersion": "1.0.0",
+  "deviceName": "MacBook Pro",
+  "settings": {
+    "searchEngine": "DuckDuckGo",
+    "screenMode": "System",
+    "retentionPeriod": "1 Week",
+    "isTrackerBlocking": true,
+    "profileName": "Alex"
+  },
+  "appearance": {
+    "selectedTheme": "Aurora",
+    "customThemes": [],
+    "showsTabSidebar": true
+  },
+  "favorites": [{ "title": "GitHub", "address": "github.com" }],
+  "bookmarks": {
+    "name": "----",
+    "bookmarks": [],
+    "folders": [
+      { "name": "Work", "bookmarks": [{ "title": "Docs", "url": "https://docs.example.com" }], "folders": [] }
+    ]
+  }
+}
+```
+
+### Top level
+
+| Key | Type | Required | Description |
+| --- | --- | --- | --- |
+| `format` | string | yes | Always `"com.ovra.backup"`. |
+| `version` | integer | yes | Format version. Ovra 1.0 reads `1` and rejects higher versions. |
+| `createdAt` | string | yes | When the backup was made. |
+| `appVersion` | string | yes | Ovra version that wrote the file. |
+| `deviceName` | string | yes | Name of the Mac. Shown before restoring. |
+| `settings` | object | no | See [settings](#settings). |
+| `appearance` | object | no | See [appearance](#appearance). |
+| `favorites` | array | no | `{ "title", "address" }` objects. |
+| `bookmarks` | object | no | The root [bookmark folder](#bookmark-folder). |
+
+### `settings`
+
+| Key | Values |
+| --- | --- |
+| `searchEngine` | `"Google"`, `"Bing"`, `"Yahoo"`, `"DuckDuckGo"` |
+| `screenMode` | `"System"`, `"Light"`, `"Dark"` |
+| `retentionPeriod` | `"1 Day"`, `"1 Week"`, `"1 Month"`, `"Indefinite"` |
+| `isTrackerBlocking` | boolean |
+| `profileName` | string, optional |
+
+### `appearance`
+
+| Key | Type | Description |
+| --- | --- | --- |
+| `selectedTheme` | string | A built-in theme name (e.g. `"Aurora"`) or the `id` of a custom theme. |
+| `customThemes` | array | [Theme objects](/docs/formats/ovratheme#theme-object). |
+| `showsTabSidebar` | boolean, optional | Whether the tab sidebar is shown. |
+
+### Bookmark folder
+
+| Key | Type | Description |
+| --- | --- | --- |
+| `name` | string | Folder name. The root folder's name is ignored. |
+| `bookmarks` | array | `{ "title", "url" }` objects, in order. |
+| `folders` | array | Nested bookmark folders, in order. |
+
+## Restore behaviour
+
+| Section | When restored |
+| --- | --- |
+| `settings` | **Replaces** the current settings. |
+| `appearance` | Custom themes are **merged** by `id` (same id → replaced). `selectedTheme` is applied only if that theme exists. |
+| `favorites` | **Added**. Skipped when the address already exists, ignoring `http(s)://`, `www.` and trailing slashes. |
+| `bookmarks` | **Added**. Folders with the same name at the same level are merged; bookmarks whose URL already exists anywhere are skipped. |
+
+## Not included
+
+History, open tabs, cookies and other website data, and site permissions are never written to a backup.

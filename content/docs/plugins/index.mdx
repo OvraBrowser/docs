@@ -1,0 +1,28 @@
+---
+asIndexPage: true
+---
+import { Status } from '../../../components/status'
+
+# Ovra plugins
+
+<Status kind="planned" />
+
+Web Extensions change web pages. **Ovra plugins** extend the app itself — the parts no other browser has.
+
+## What plugins will be able to add
+
+| Extension point | Example |
+| --- | --- |
+| **Sidebar panels** | A notes panel, a reading list, a to-do list next to your tabs. |
+| **Toolbar buttons** | A button that runs an action on the current page. |
+| **Commands** | Actions with keyboard shortcuts, available from the menu bar. |
+| **Start page widgets** | Weather, calendar, or anything else on the new-tab page. |
+
+## Principles
+
+- **Written in JavaScript**, so anyone who builds for the web can build for Ovra.
+- **Declared permissions.** A plugin states what it needs (current URL, tabs, network, storage) in its manifest, and the user approves it on install.
+- **Sandboxed.** Plugins run isolated from web pages and from each other, and can't read browsing data they weren't granted.
+- **Native look.** Plugins describe their UI; Ovra renders it in its own style, so every panel feels like part of the app.
+
+The manifest and the full API will be documented in the [API reference](/docs/plugins/api-reference) before they ship.

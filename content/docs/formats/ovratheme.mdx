@@ -1,0 +1,89 @@
+import { Status } from '../../../components/status'
+
+# The `.ovratheme` format
+
+<Status kind="available" note="Ovra 1.0 and later · format version 1" />
+
+An `.ovratheme` file holds one or more custom themes. Ovra writes it when a user exports a theme, and opens it when the file is double-clicked or imported in **Settings › Themes**. You can generate these files yourself — for example to publish a theme pack.
+
+## File type
+
+| | |
+| --- | --- |
+| Extension | `.ovratheme` |
+| Uniform Type Identifier | `com.ovra.browser.theme` (conforms to `public.json`) |
+| MIME type | `application/vnd.ovra.theme+json` |
+| Encoding | UTF-8 JSON |
+| Maximum size | 20 MB |
+
+## Structure
+
+```json filename="Sunset.ovratheme"
+{
+  "format": "com.ovra.theme",
+  "version": 1,
+  "exportedAt": "2026-10-16T12:00:00Z",
+  "themes": [
+    {
+      "id": "6F1C2E1A-1111-4222-8333-444455556666",
+      "name": "Sunset",
+      "colorHexes": ["#FF5F6D", "#C94B8C", "#5B3A9E"],
+      "angle": 135,
+      "textStyle": "auto",
+      "blurRadius": 0,
+      "noiseOpacity": 0.05,
+      "chromeOpacity": 1
+    }
+  ]
+}
+```
+
+### File object
+
+| Key | Type | Required | Description |
+| --- | --- | --- | --- |
+| `format` | string | yes | Always `"com.ovra.theme"`. |
+| `version` | integer | yes | Format version. Ovra 1.0 reads `1`; files with a higher version are rejected with “made by a newer version of Ovra”. |
+| `exportedAt` | string | no | ISO 8601 date the file was written. |
+| `themes` | array | yes | One or more [theme objects](#theme-object). |
+
+### Theme object
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` | string (UUID) | new UUID | Identifier. Ovra always gives imported themes a **new** id, so ids never clash. |
+| `name` | string | `"Untitled Theme"` | Display name, trimmed to 40 characters. If the name is taken, Ovra appends a number (`Sunset 2`). |
+| `colorHexes` | string[] | — | 2–4 gradient stops in `#RRGGBB`, first to last. |
+| `angle` | number | `135` | Gradient direction in degrees, CSS-style: `0` points up, `90` right, `135` from top-left to bottom-right. |
+| `textStyle` | `"auto"` \| `"light"` \| `"dark"` | `"auto"` | Text colour on top of the theme. `auto` picks dark text when the average luminance of the stops is above 0.45. |
+| `blurRadius` | number | `0` | Frosted glass, `0`–`30`. |
+| `noiseOpacity` | number | `0` | Grain texture, `0`–`0.3`. |
+| `chromeOpacity` | number | `1` | Opacity of the gradient, `0.3`–`1`. Lower values let the desktop show through. |
+| `color1Hex`, `color2Hex` | string | — | **Legacy.** Written for older Ovra versions (first and last stop). Read only when `colorHexes` is missing. |
+
+## Validation
+
+Ovra never fails an import because of an out-of-range value; it corrects it:
+
+- Invalid hex colours are dropped; more than four are cut to four. With fewer than two valid colours, the Aurora colours are used.
+- Numbers are clamped to the ranges above; `angle` is reduced modulo 360.
+- An empty name becomes “Untitled Theme”.
+
+Ovra also accepts a file that contains a **single theme object** instead of the file object above.
+
+## Generating a file
+
+```js filename="make-theme.mjs"
+import { writeFileSync } from 'node:fs'
+
+const file = {
+  format: 'com.ovra.theme',
+  version: 1,
+  exportedAt: new Date().toISOString(),
+  themes: [{ name: 'Ocean Breeze', colorHexes: ['#2193B0', '#6DD5ED'], angle: 160 }]
+}
+
+writeFileSync('Ocean Breeze.ovratheme', JSON.stringify(file, null, 2))
+```
+
+See the [theme pack guide](/docs/guides/theme-pack) for a full walkthrough.

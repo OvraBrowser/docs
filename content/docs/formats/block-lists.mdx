@@ -1,0 +1,17 @@
+import { Status } from '../../../components/status'
+
+# Block lists
+
+<Status kind="planned" />
+
+Today Ovra blocks trackers with a built-in list based on DuckDuckGo's Tracker Radar, plus a few rules of its own.
+
+We plan to let developers publish **custom block lists** — for example a list that hides cookie banners or blocks a category of sites — that users can add next to the built-in one.
+
+## What we're aiming for
+
+- Lists written in **WebKit content-blocker JSON** (the same rule format Safari uses), so existing rules can be reused.
+- A small manifest with a name, description, version and homepage.
+- Distribution as a file or through the Ovra gallery, like other add-ons.
+
+The format will be specified here before it ships. Follow the [roadmap](/docs/roadmap) for updates.

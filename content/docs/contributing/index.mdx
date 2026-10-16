@@ -1,0 +1,32 @@
+---
+asIndexPage: true
+---
+
+# Contributing
+
+Ovra's source code is on [GitHub](https://github.com/OvraBrowser/Ovra). Bug reports, ideas and pull requests are welcome.
+
+## Ways to help
+
+- **Report a bug.** [Open an issue](https://github.com/OvraBrowser/Ovra/issues) with your macOS version, Ovra version and the steps that cause the problem.
+- **Suggest a feature or an API.** Open an issue describing what you want to build and what's missing.
+- **Fix something.** Look for open issues, then send a pull request.
+- **Translate.** Ovra is localized in nine languages; strings live in the `*.lproj/Localizable.strings` files.
+
+## Pull requests
+
+1. Fork the repository and create a branch from `main`.
+2. [Build Ovra from source](/docs/contributing/build) and make your change.
+3. Keep the change focused: one fix or feature per pull request.
+4. Describe what you changed and how you tested it, with screenshots for anything visual.
+
+## Code style
+
+- Match the code around you: naming, indentation and the amount of comments.
+- SwiftUI for interface, AppKit only where SwiftUI can't do the job.
+- Every string a user sees goes through `NSLocalizedString`.
+- Avoid new dependencies unless they clearly pay for themselves.
+
+## Security issues
+
+Please don't report security problems in a public issue. See [Permissions & security](/docs/security#reporting-a-vulnerability).

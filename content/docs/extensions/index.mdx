@@ -1,0 +1,25 @@
+---
+asIndexPage: true
+---
+import { Status } from '../../../components/status'
+
+# Web Extensions
+
+<Status kind="planned" note="Will require macOS 15.4 or later" />
+
+Ovra will run standard **Web Extensions** — the format used by Chrome, Firefox and Safari extensions — through Apple's `WKWebExtension` support in WebKit. If you've built a browser extension before, you'll be able to bring it to Ovra with little or no change.
+
+## What's planned
+
+- Loading extensions that use a `manifest.json` (Manifest V3).
+- The common `browser.*` / `chrome.*` APIs that WebKit supports: tabs, storage, content scripts, background service workers, declarative content blocking, action buttons and popups.
+- An **Extensions** section in Settings to install, enable, disable and remove extensions, with a permission prompt on install.
+- Installing from a file or from the [Ovra gallery](/docs/security#gallery-review).
+
+## Requirements
+
+Apple's Web Extension support in WebKit needs **macOS 15.4**. When extensions ship, Ovra's minimum macOS version moves to 15.4.
+
+## What to do today
+
+You can start with a standard Manifest V3 extension and test it in Safari. The supported API surface in Ovra will be listed on this page — follow the [roadmap](/docs/roadmap).

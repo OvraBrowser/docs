@@ -1,0 +1,47 @@
+import { Status } from '../../../components/status'
+import { Steps } from 'nextra/components'
+
+# Share a theme pack
+
+<Status kind="available" />
+
+Themes are the one thing you can build for Ovra today. A **theme pack** is a single `.ovratheme` file with several themes. When someone double-clicks it, Ovra adds every theme and switches to the first one.
+
+<Steps>
+
+### Design your themes
+
+The easiest way is inside Ovra: **Settings › Themes › New Theme**. Pick 2–4 colours, a direction and effects, and watch the live preview.
+
+### Export them
+
+From each theme's **…** menu choose **Export…**, or use **Export All…** to put all your custom themes in one file.
+
+### Or generate the file
+
+To make many themes, write the file yourself. It's JSON — see [the format](/docs/formats/ovratheme):
+
+```js filename="pack.mjs"
+import { writeFileSync } from 'node:fs'
+
+const themes = [
+  { name: 'Dune', colorHexes: ['#E0A96D', '#B5651D'], angle: 135 },
+  { name: 'Lagoon', colorHexes: ['#1CB5E0', '#000851'], angle: 160 },
+  { name: 'Paper', colorHexes: ['#F5F5F7', '#E8E8ED'], angle: 180, textStyle: 'dark' }
+]
+
+writeFileSync(
+  'My Pack.ovratheme',
+  JSON.stringify({ format: 'com.ovra.theme', version: 1, themes }, null, 2)
+)
+```
+
+### Test it
+
+Double-click the file. Check every theme in light and dark mode, and make sure text stays readable — set `textStyle` to `"light"` or `"dark"` if the automatic choice isn't right.
+
+### Share it
+
+Attach the file to a GitHub release, your website or a message. Once the Ovra gallery opens, you'll be able to submit it there too.
+
+</Steps>
